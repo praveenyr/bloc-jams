@@ -53,6 +53,16 @@ body.landing {
 
  }
 
+.clearfix::before,
+.clearfix::after {
+   content: " ";
+   display: table;
+}
+
+.clearfix::after {
+   clear: both;
+}
+
  /* Large screens (1024px) */
  @media (min-width: 1024px) {
    /* Style information will go here */
