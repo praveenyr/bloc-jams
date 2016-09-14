@@ -20,13 +20,24 @@
 
       };
 
+      var setSong = function(songNumber){
+        currentlyPlayingSongNumber = parseInt(songNumber);
+        currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+      };
+
+      var getSongNumberCell = function(number){
+          var songNumberElement = $('.song-item-number[data-song-number="' + number + '"]');
+          return songNumberElement;
+      };
+
       var clickHandler = function() {
     // clickHandler logic
        var songNumber = parseInt($(this).attr('data-song-number'));
  //
          if (currentlyPlayingSongNumber !== null) {
            // Revert to song number for currently playing song because user started playing new song.
-           var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+          // var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+           var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
            currentlyPlayingCell.html(currentlyPlayingSongNumber);
          }
 
@@ -37,8 +48,9 @@
            $('.main-controls .play-pause').html(playerBarPlayButton);
          } else if (currentlyPlayingSongNumber !== songNumber) {
                $(this).html(pauseButtonTemplate);
-               currentlyPlayingSongNumber = songNumber;
-               currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+               setSong(songNumber);
+              //  currentlyPlayingSongNumber = songNumber;
+              //  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
                updatePlayerBarSong(); //Pausing when a new song is selected
          }
       };
@@ -112,7 +124,7 @@ var setCurrentAlbum = function(album) {
    //Update HTMLs of the previous and the next(current) songs
    currentlyPlayingSongNumber = currentSongIdx + 1;
    $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]').html(pauseButtonTemplate);
-   $('.song-item-number[data-song-number="' + (previousSongIdx + 1) + '"]').html(previousSongIdx + 1);
+  $('.song-item-number[data-song-number="' + (previousSongIdx + 1) + '"]').html(previousSongIdx + 1);
  };
 
  var previousSong = function(){
